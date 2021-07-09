@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
-const URL =  "https://dev.com";
+const URL =  "https://maps.googleapis.com/maps/api/place";
 
 const API = axios.create({
   baseURL: URL,
@@ -21,7 +21,7 @@ API.interceptors.request.use(async (config: AxiosRequestConfig) => {
 API.interceptors.response.use((response: AxiosResponse) => {
   // Any status code that lie within the range of 2xx cause this function to trigger
   // Do something with response data
-  return response.data;
+  return response;
 }, (error: AxiosError) => {
   if (error.response) {
     // The request was made and the server responded with a status code
@@ -38,23 +38,15 @@ API.interceptors.response.use((response: AxiosResponse) => {
     // Something happened in setting up the request that triggered an Error
     console.log('Error', error.message);
   }
+  return Promise.reject(error);
 });
 
 export default API;
 
-const TEST_ENDPOINT = '/test';
+const NEARBY_SEARCH = '/nearbysearch/json';
 
-export const UserAPI = {
-  create: (data: any): Promise<AxiosResponse> => {
-    return API.post(TEST_ENDPOINT, data);
-  },
-  read: (): Promise<AxiosResponse> => {
-    return API.get(TEST_ENDPOINT);
-  },
-  update: (data: any): Promise<AxiosResponse> => {
-    return API.put(TEST_ENDPOINT, data);
-  },
-  delete: (): Promise<AxiosResponse> => {
-    return API.delete(TEST_ENDPOINT);
+export const NearbyAPI = {
+  read: (params: any): Promise<AxiosResponse> => {
+    return API.get(NEARBY_SEARCH, {params:{key: "AIzaSyAo3VRAcsLnTkYGnpZ7v5105CFsl-38RvY", type: "cafe", ...params}});
   }
 }
