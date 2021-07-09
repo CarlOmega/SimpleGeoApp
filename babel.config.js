@@ -22,6 +22,7 @@ module.exports = {
           '@components': './src/components',
           '@navigation': './src/navigation',
           '@screens': './src/screens',
+          '@states': './src/states',
           '@styles': './src/styles',
           '@utils': './src/utils',
           '@datatypes': './src/datatypes',

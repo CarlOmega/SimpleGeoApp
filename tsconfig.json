@@ -43,6 +43,7 @@
       "@components/*": ["components/*"],
       "@navigation/*": ["navigation/*"],
       "@screens/*": ["screens/*"],
+      "@states/*": ["states/*"],
       "@styles/*": ["styles/*"],
       "@utils/*": ["utils/*"],
       "@datatypes/*": ["datatypes/*"],

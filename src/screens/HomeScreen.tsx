@@ -1,20 +1,9 @@
 import React from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
-
-import Geolocation, { GeolocationResponse } from '@react-native-community/geolocation';
+import { useData } from '@states/DataContext';
 
 const HomeScreen = ({navigation, route}: any) => {
-  const [location, setLocation] = useState<GeolocationResponse | null>(null);
-
-  const loadPos = async () => {
-    Geolocation.getCurrentPosition(info => setLocation(info));
-  }
-
-  useEffect(() => {
-    loadPos();
-  }, []);
+  const { location } = useData();
 
   return (
     <SafeAreaView style={styles.screen}>
