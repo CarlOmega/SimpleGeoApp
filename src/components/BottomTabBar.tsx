@@ -1,3 +1,4 @@
+import React from 'react';
 import { BottomNavigation, BottomNavigationTab } from '@ui-kitten/components';
 
 const BottomTabBar = ({ navigation, state }: any) => (
