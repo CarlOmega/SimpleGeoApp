@@ -1,13 +1,32 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { useData } from '@states/DataContext';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 const MapScreen = ({navigation, route}: any) => {
+  const { location } = useData();
+
+
+  if (!location) {
+    return (
+      <SafeAreaView style={styles.screen}>
+        <Text>No Location</Text>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.screen}>
-      <Text style={styles.text}>Map Screen</Text>
-      <Icon name="rocket" size={30} color="#900" onPress={() => navigation.navigate("Details")}/>
+      <MapView
+        style={{flex: 1}}
+        provider={PROVIDER_GOOGLE}
+        initialRegion={{
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      />
     </SafeAreaView>
   )
 }
