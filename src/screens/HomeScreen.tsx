@@ -1,16 +1,17 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { useData } from '@states/DataContext';
-import { Layout, List, Card, Text, Button } from '@ui-kitten/components';
+import { Layout, List, Card, Text, Button, Icon } from '@ui-kitten/components';
 
 const HomeScreen = ({navigation, route}: any) => {
-  const { location, cafes, nextCafes } = useData();
+  const { location, cafes, nextCafes, favourites } = useData();
 
   const renderItemHeader = (headerProps: any, item: any) => (
-    <View {...headerProps}>
-      <Text category='h6'>
+    <View {...headerProps} style={{flexDirection: "row", alignContent: "center", alignItems: "center", padding: 10}}>
+      <Text category='h6' style={{flex: 3}}>
         {item.name}
       </Text>
+      {favourites.includes(item.place_id) && <Icon style={{width: 32, height: 32, flex: 1}} fill={'#121212'} name='star'/>}
     </View>
   );
   
@@ -37,7 +38,7 @@ const HomeScreen = ({navigation, route}: any) => {
       header={headerProps => renderItemHeader(headerProps, item)}
       footer={footerProps => renderItemFooter(footerProps, item)}>
       <Text>
-        {item.rating}
+        {`Rating: ${item.rating}`}
       </Text>
     </Card>
   );

@@ -20,8 +20,8 @@ const TabNavigator = () => (
 );
 
 const RootNavigator = () =>  (
-  <HomeStack.Navigator initialRouteName="Tabs" mode="modal">
-    <HomeStack.Screen name="Tabs" component={TabNavigator} options={{headerShown: false}}/>
+  <HomeStack.Navigator initialRouteName="Cafes" mode="modal">
+    <HomeStack.Screen name="Cafes" component={TabNavigator} options={{headerShown: false}}/>
     <HomeStack.Screen name="Details" component={DetailScreen} />
   </HomeStack.Navigator>
 );
