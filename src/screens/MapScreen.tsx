@@ -6,7 +6,6 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 const MapScreen = ({navigation, route}: any) => {
   const { location } = useData();
 
-
   if (!location) {
     return (
       <SafeAreaView style={styles.screen}>
