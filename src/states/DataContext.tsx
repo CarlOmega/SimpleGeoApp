@@ -26,7 +26,7 @@ export const DataProvider = (props: any) => {
     try {
       const res = await NearbyAPI.read({
         location: `${location?.coords.latitude},${location?.coords.longitude}`,
-        radius: 5000, 
+        radius: 50000, 
       });
       if (res.data.results) {
         setCafes(res.data.results);
@@ -46,7 +46,7 @@ export const DataProvider = (props: any) => {
     try {
       const res = await NearbyAPI.read({
         location: `${location?.coords.latitude},${location?.coords.longitude}`,
-        radius: 5000, 
+        radius: 50000, 
         ...(pageToken && {pagetoken: pageToken})
       });
       if (res.data.results) {
