@@ -5,7 +5,7 @@ import { Card, Text } from '@ui-kitten/components';
 const renderItemHeader = (headerProps: any, item: any) => (
   <View {...headerProps}>
     <Text category='h6'>
-      {item.title}
+      {item.name}
     </Text>
   </View>
 );

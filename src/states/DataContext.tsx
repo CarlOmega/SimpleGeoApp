@@ -6,6 +6,8 @@ export const DataConext = React.createContext<any>({});
 
 export const DataProvider = (props: any) => {
   const [location, setLocation] = useState<GeolocationResponse | null>(null);
+  const [cafes, setCafes] = useState<any[]>([]);
+  const [pageToken, setPageToken] = useState<string | null>(null);
 
   useEffect(() => {
     loadPos();
@@ -13,16 +15,46 @@ export const DataProvider = (props: any) => {
 
   useEffect(() => {
     if (location) 
-      loadPlaces();
+      loadCafes();
   }, [location]);
 
-  const loadPlaces = async () => {
+  useEffect(() => {
+    console.log(cafes.length)
+  }, [cafes]);
+
+  const loadCafes = async () => {
     try {
       const res = await NearbyAPI.read({
         location: `${location?.coords.latitude},${location?.coords.longitude}`,
-        radius: 1500
+        radius: 5000, 
       });
-      console.log(res.data.results[0]);
+      if (res.data.results) {
+        setCafes(res.data.results);
+        setPageToken(res.data.next_page_token ?? null)
+      } else {
+        throw new Error("No cafes");
+      }
+    } catch (e) {
+      console.log(e.message);
+      setCafes([]);
+      setPageToken(null);
+    }
+  }
+
+  const nextCafes = async () => {
+    if (!pageToken) return;
+    try {
+      const res = await NearbyAPI.read({
+        location: `${location?.coords.latitude},${location?.coords.longitude}`,
+        radius: 5000, 
+        ...(pageToken && {pagetoken: pageToken})
+      });
+      if (res.data.results) {
+        setCafes((prev) => [...prev, ...res.data.results]);
+        setPageToken(res.data.next_page_token ?? null)
+      } else {
+        throw new Error("No cafes");
+      }
     } catch (e) {
       console.log(e.message);
     }
@@ -34,7 +66,10 @@ export const DataProvider = (props: any) => {
 
   const dataContext = useMemo(() => ({
     location,
-  }), [location]);
+    cafes,
+    loadCafes,
+    nextCafes
+  }), [location, cafes, pageToken]);
 
   return (
     <DataConext.Provider value={dataContext}>

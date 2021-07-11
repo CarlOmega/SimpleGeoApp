@@ -5,19 +5,17 @@ import { List } from '@ui-kitten/components';
 import CafeItem from '@components/CafeItem';
 
 const HomeScreen = ({navigation, route}: any) => {
-  const { location } = useData();
-
-  const data = new Array(8).fill({
-    title: 'Item',
-  });
+  const { location, cafes, nextCafes } = useData();
 
   return (
     <SafeAreaView style={styles.screen}>
       <List
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
-        data={data}
+        data={cafes}
         renderItem={CafeItem}
+        onEndReached={(info: any) => nextCafes()}
+        onEndReachedThreshold={0.2}
       />
     </SafeAreaView>
   )
