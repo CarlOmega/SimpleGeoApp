@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import { useData } from '@states/DataContext';
-import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps';
 
 const MapScreen = ({navigation, route}: any) => {
+  const region = route.params?.region;
   const { location, cafes } = useData();
+  const [focus, setFocus] = useState<any | null>(region);
 
   if (!location) {
     return (
@@ -25,16 +27,27 @@ const MapScreen = ({navigation, route}: any) => {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
+        {...(focus && {region: focus})}
       >
         {cafes.map((item: any, index: number) => (
           <Marker
             key={index}
+            onPress={({nativeEvent: {coordinate}} : any) => coordinate && setFocus({
+              latitude: coordinate.latitude,
+              longitude: coordinate.longitude,
+              latitudeDelta: 0.0471,
+              longitudeDelta: 0.02105,
+            })}
             coordinate={{
               latitude: item.geometry.location.lat,
               longitude: item.geometry.location.lng,
             }}
-            title={item.name}
-          />
+          >
+            <Callout onPress={() => navigation.navigate("Details", {cafe: item})}>
+              <Text>{item.name}</Text>
+              <Text>View Details</Text>
+            </Callout>
+          </Marker>
         ))}
       </MapView>
     </SafeAreaView>

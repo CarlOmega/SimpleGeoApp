@@ -1,13 +1,12 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const DetailScreen = ({navigation, route}: any) => {
+  const cafe = route.params.cafe;
 
   return (
     <SafeAreaView style={styles.screen}>
-      <Text style={styles.text}>Map Screen</Text>
-      <Icon name="rocket" size={30} color="#900" />
+      <Text style={styles.text}>{cafe.name}</Text>
     </SafeAreaView>
   )
 }
