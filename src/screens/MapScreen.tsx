@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import { useData } from '@states/DataContext';
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps';
+import { useEffect } from 'react';
 
 const MapScreen = ({navigation, route}: any) => {
-  const region = route.params?.region;
   const { location, cafes } = useData();
-  const [focus, setFocus] = useState<any | null>(region);
+  const [focus, setFocus] = useState<any | null>(route.params?.region);
+
+  useEffect(() => {
+    setFocus(route.params?.region);
+  }, [route.params])
 
   if (!location) {
     return (

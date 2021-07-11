@@ -19,8 +19,8 @@ const HomeScreen = ({navigation, route}: any) => {
       <Button style={styles.cardButton} onPress={() => navigation.navigate("Map", {region: {
         latitude: item.geometry.location.lat,
         longitude: item.geometry.location.lng,
-        latitudeDelta: 0.00922,
-        longitudeDelta: 0.00421,
+        latitudeDelta: 0.0236,
+        longitudeDelta: 0.01105,
       }})}>
         {"Map Link"}
       </Button>
