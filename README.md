@@ -1,5 +1,7 @@
 # SimpleGeoApp
 Simple Geolocation app for react native
+## API Key
+You will need to add a valid API key to the utils/API.tsx line 50 after key.
 
 # Running instructions
 ## Step One: Copy
