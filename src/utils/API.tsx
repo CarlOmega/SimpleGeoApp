@@ -47,6 +47,6 @@ const NEARBY_SEARCH = '/nearbysearch/json';
 
 export const NearbyAPI = {
   read: (params: any): Promise<AxiosResponse> => {
-    return API.get(NEARBY_SEARCH, {params:{key: "AIzaSyAo3VRAcsLnTkYGnpZ7v5105CFsl-38RvY", type: "cafe", ...params}});
+    return API.get(NEARBY_SEARCH, {params:{key: "", type: "cafe", ...params}});
   }
 }
